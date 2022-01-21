@@ -11,7 +11,18 @@ enum SwiftLox {}
 
 extension SwiftLox {
     static func run(args: [String]) -> ExitCode {
-        return .ok
+        switch args.count {
+        case 1:
+            Repl().run()
+            return .ok
+        case 2:
+            let filePath = args[1]
+            FileRunner().run(filePath: filePath)
+            return .ok
+        default:
+            print("Usage: swiftlox [source path]")
+            return .error
+        }
     }
 }
 
